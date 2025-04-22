@@ -1,0 +1,82 @@
+---
+// assets
+import katie from "@/assets/avatar.jpeg";
+
+// components
+import Heading from "./ui/Heading.astro";
+import Link, { type LinkProps } from "./ui/Link.astro";
+
+interface Link extends LinkProps {
+  name: string;
+}
+
+type Props = {
+  title?: string;
+  content?: string;
+  links?: Link[];
+}
+
+// data
+const defaultContent = {
+  title: "👋 Hi, I'm Katie",
+  content: "I'm a self-taught designer and developer obsessed with quality",
+  links: [
+  {
+    href: '/katie-haus-cv.pdf',
+    name: "Download CV",
+    variant: "secondary"
+  },
+  {
+    href: '#connect',
+    name: "Let's Connect",
+    variant: "primary"
+  }
+]
+}
+
+const { title = defaultContent.title, content = defaultContent.content, links = defaultContent.links} = Astro.props;
+---
+
+<section aria-label="Hero section" class="hero">
+  <img src={katie.src} alt="Katie Haus" />
+  <Heading tagName="h1" tagSize="h2">{title}</Heading>
+  <p>{content}</p>
+  <div class="columns">
+    {links.map((link) => <Link href={link.href} variant={link.variant}>{link.name}</Link>)}
+  </div>
+</section>
+
+<style>
+  .default {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: baseline;
+    text-wrap: balance;
+    line-height: var(--lh-headings);
+  }
+
+  .h1 {
+    font-size: var(--fs-2xl);
+  }
+
+  .h2 {
+    font-size: var(--fs-xl);
+  } 
+
+  .h3 {
+    font-size: var(--fs-lg);
+  }
+
+  .h4 {
+    font-size: var(--fs-md);
+  }
+
+  .h5 {
+    font-size: var(--fs-sm);
+  }
+
+  .h6 {
+    font-size: var(--fs-xs);
+  }
+  
+</style>
